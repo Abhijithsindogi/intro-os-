@@ -1,0 +1,304 @@
+@import "tailwindcss";
+
+:root {
+  --u: max(min(calc(100vw / 1563), calc(100vh / 460)), 0.80px);
+  --ink: #ffffff;
+  --ink-mark: rgba(255, 255, 255, 0.98);
+  --ink-nav: rgba(255, 255, 255, 0.91);
+  --ink-sub: rgba(255, 255, 255, 0.50);
+  --ink-pill: rgba(255, 255, 255, 0.88);
+  --ink-dark: #000000;
+  --hairline: rgba(255, 255, 255, 0.98);
+  --glass-bg: rgba(255, 255, 255, 0.12);
+  --glass-line: rgba(255, 255, 255, 0.15);
+  --r-btn: calc(10 * var(--u));
+
+  --e-reveal: cubic-bezier(0.18, 0.85, 0.26, 1);
+  --e-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --e-nav: cubic-bezier(0.33, 1, 0.68, 1);
+  --rise: calc(10 * var(--u));
+  --rise-lg: calc(13 * var(--u));
+}
+
+@supports (height: 100dvh) {
+  :root {
+    --u: max(min(calc(100vw / 1563), calc(100dvh / 460)), 0.80px);
+  }
+}
+
+@supports not (width: max(1px, 1vw)) {
+  :root {
+    --u: calc(100vw / 1563);
+  }
+}
+
+@media (max-width: 1023px) {
+  :root {
+    --u: calc(100vw / 900);
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --u: calc(100vw / 486);
+  }
+}
+
+@media (max-width: 380px) {
+  :root {
+    --u: calc(100vw / 470);
+  }
+}
+
+@media (max-width: 1023px) and (max-height: 520px) {
+  :root {
+    --u: min(calc(100vw / 900), calc(100vh / 470));
+  }
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  background: #040407;
+  color: #ffffff;
+  overflow-x: hidden;
+  overflow-y: auto;
+  font-family: "Inter", "Helvetica Neue", Arial, system-ui, sans-serif;
+  font-optical-sizing: none;
+  font-feature-settings: "kern" 1, "calt" 1;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+
+/* Reduced motion handling */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* Focus styles */
+a:focus-visible, button:focus-visible {
+  outline: 2px solid #a78bfa;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Common button styles matching Orbit reference */
+.orbit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: calc(10 * var(--u));
+  text-decoration: none;
+  white-space: nowrap;
+  line-height: 1;
+  border: 0;
+  cursor: pointer;
+  transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+}
+
+.orbit-btn:active {
+  transform: scale(0.98);
+}
+
+.orbit-btn.ghost {
+  background: transparent;
+  color: #ffffff;
+  border: calc(1 * var(--u)) solid rgba(255, 255, 255, 0.98);
+}
+
+.orbit-btn.ghost:hover {
+  background: rgba(255, 255, 255, 0.10);
+}
+
+.orbit-btn.solid {
+  background: #ffffff;
+  color: #000000;
+}
+
+.orbit-btn.solid:hover {
+  background: #e9e9ea;
+}
+
+.orbit-btn.accent {
+  background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%);
+  color: #ffffff;
+  box-shadow: 0 0 calc(20 * var(--u)) rgba(124, 58, 237, 0.4);
+}
+
+.orbit-btn.accent:hover {
+  background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+  box-shadow: 0 0 calc(25 * var(--u)) rgba(124, 58, 237, 0.6);
+}
+
+/* Mask reveal line container */
+.ln {
+  display: block;
+  overflow: hidden;
+  padding-bottom: calc(7 * var(--u));
+  margin-bottom: calc(-7 * var(--u));
+}
+
+.ln-i {
+  display: block;
+}
+
+/* Animation keyframes */
+@keyframes i-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, var(--rise), 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes i-rise-cy {
+  from {
+    opacity: 0;
+    transform: translateY(-50%) translate3d(0, var(--rise), 0);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes i-pill {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translate3d(0, var(--rise-lg), 0) scale(0.972);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes i-sub {
+  from {
+    opacity: 0;
+    transform: translateX(calc(-50% + calc(0.25 * var(--u)))) translate3d(0, var(--rise-lg), 0);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(calc(-50% + calc(0.25 * var(--u))));
+  }
+}
+
+@keyframes i-btn {
+  from {
+    opacity: 0;
+    transform: translate3d(0, var(--rise-lg), 0) scale(0.986);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes i-line {
+  from {
+    transform: translate3d(0, 115%, 0);
+  }
+  to {
+    transform: none;
+  }
+}
+
+/* When intro class is active, initial state before animation */
+.intro .anim-brand,
+.intro .anim-link,
+.intro .anim-action,
+.intro .anim-pill,
+.intro .anim-sub,
+.intro .anim-btn {
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.intro .ln-i {
+  transform: translate3d(0, 115%, 0);
+  will-change: transform;
+}
+
+/* Animated timeline on intro-play */
+.intro-play .anim-brand {
+  animation: i-rise-cy 0.62s var(--e-nav) 0s both;
+}
+
+.intro-play .anim-link-1 {
+  animation: i-rise 0.55s var(--e-nav) 0.070s both;
+}
+.intro-play .anim-link-2 {
+  animation: i-rise 0.55s var(--e-nav) 0.115s both;
+}
+.intro-play .anim-link-3 {
+  animation: i-rise 0.55s var(--e-nav) 0.160s both;
+}
+.intro-play .anim-link-4 {
+  animation: i-rise 0.55s var(--e-nav) 0.205s both;
+}
+
+.intro-play .anim-action {
+  animation: i-rise 0.55s var(--e-nav) 0.215s both;
+}
+
+.intro-play .anim-action-ghost {
+  animation: i-rise 0.55s var(--e-nav) 0.160s both;
+}
+
+.intro-play .anim-pill {
+  animation: i-pill 0.62s var(--e-soft) 0.26s both;
+}
+
+.intro-play .anim-line-1 .ln-i {
+  animation: i-line 0.95s var(--e-reveal) 0.34s both;
+}
+
+.intro-play .anim-line-2 .ln-i {
+  animation: i-line 0.95s var(--e-reveal) 0.48s both;
+}
+
+.intro-play .anim-sub {
+  animation: i-sub 0.70s var(--e-soft) 0.86s both;
+}
+
+.intro-play .anim-btn-1 {
+  animation: i-btn 0.62s var(--e-soft) 1.00s both;
+}
+
+.intro-play .anim-btn-2 {
+  animation: i-btn 0.62s var(--e-soft) 1.07s both;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.35);
+}

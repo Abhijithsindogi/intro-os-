@@ -1,0 +1,11 @@
+{
+  "name": "INTERVIEW.OS",
+  "description": "Real-Time AI Interview Practice Platform for Engineering Students & Freshers.",
+  "requestFramePermissions": [
+    "microphone",
+    "camera"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
